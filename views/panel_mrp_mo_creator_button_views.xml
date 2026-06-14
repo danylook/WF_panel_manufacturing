@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_wf_panel_section_form_manufacturing_inherit_mo_button" model="ir.ui.view">
+            <field name="name">wf.panel.section.form.manufacturing.inherit.mo.button</field>
+            <field name="model">wf.panel.section</field>
+            <field name="inherit_id" ref="WF_panel_importer.view_wf_panel_section_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='component_ids']" position="after">
+                    <footer>
+                        <button name="action_show_piece_dictionary" type="object" string="Diccionario de piezas" class="btn-info"/>
+                        <button name="action_create_panel_mo" type="object" string="Crear MO y BOM" class="btn-success" context="{'active_id': id}" groups="mrp.group_mrp_user"/>
+                    </footer>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

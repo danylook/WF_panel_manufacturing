@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_wf_panel_mrp_wizard,wf.panel.mrp.wizard,model_wf_panel_mrp_wizard,base.group_user,1,1,1,1
+
+access_panel_mrp_dictionary_wizard_user,panel.mrp.dictionary.wizard user,model_panel_mrp_dictionary_wizard,base.group_user,1,1,1,0
+access_panel_mrp_mo_creator_wizard_mrp_user,panel.mrp.mo.creator.wizard mrp user,model_panel_mrp_mo_creator_wizard,mrp.group_mrp_user,1,1,1,0
+
+access_wf_product_stock_length_user,wf.product.stock.length user,model_wf_product_stock_length,base.group_user,1,1,1,1
