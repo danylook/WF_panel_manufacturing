@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_wf_panel_mrp_wizard_form" model="ir.ui.view">
+            <field name="name">wf.panel.mrp.wizard.form</field>
+            <field name="model">wf.panel.mrp.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Generar orden de fabricación" create="0" edit="0">
+                    <group>
+                        <field name="section_id" options="{'no_create': True}"/>
+                        <field name="auto_assign"/>
+                        <field name="auto_plan"/>
+                    </group>
+                    <group invisible="result_production_id == False">
+                        <field name="result_production_id" readonly="1"/>
+                        <field name="missing_component_info" readonly="1" widget="text"/>
+                    </group>
+                    <footer>
+                        <button string="Generar" type="object" name="action_generate" class="btn-primary"/>
+                        <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_wf_panel_generate_mrp" model="ir.actions.act_window">
+            <field name="name">Fabricar panel</field>
+            <field name="res_model">wf.panel.mrp.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_wf_panel_mrp_wizard_form"/>
+            <field name="target">new</field>
+        </record>
+
+    <menuitem id="menu_wf_panel_generate_mrp"
+          name="Planificar fabricación"
+          parent="WF_panel_importer.menu_wf_panel_root"
+          action="action_wf_panel_generate_mrp"
+          sequence="25"/>
+
+        <record id="view_wf_panel_form_manufacturing_inherit" model="ir.ui.view">
+            <field name="name">wf.panel.form.manufacturing.inherit</field>
+            <field name="model">wf.panel</field>
+            <field name="inherit_id" ref="WF_panel_importer.view_wf_panel_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='section_ids']//form//sheet" position="inside">
+                    <group string="Manufactura">
+                        <field name="manufactured_product_id" readonly="1" groups="mrp.group_mrp_user"/>
+                        <field name="manufactured_bom_id" readonly="1" groups="mrp.group_mrp_user"/>
+            <button name="action_prepare_manufacturing_profile"
+                type="object"
+                string="Generar producto y lista"
+                class="btn-secondary"
+                groups="mrp.group_mrp_user"
+                invisible="id == False"/>
+            <!-- Removed invalid button: action_plan_import -->
+            <button name="action_show_piece_dictionary"
+                type="object"
+                string="Diccionario de piezas"
+                class="btn-info"
+                groups="mrp.group_mrp_user"
+                invisible="id == False"/>
+            <button name="action_create_panel_mo"
+                type="object"
+                string="Crear MO y BOM"
+                class="btn-success"
+                groups="mrp.group_mrp_user"
+                context="{'active_id': id}"/>
+            <button name="%(action_wf_panel_generate_mrp)d"
+                type="action"
+                string="Crear orden de fabricación"
+                class="oe_highlight"
+                context="{'default_section_id': id}"
+                invisible="id == False or production_id != False"/>
+                        <field name="production_id" readonly="1"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_mrp_production_form_panel_link" model="ir.ui.view">
+            <field name="name">mrp.production.form.wf.panel.link</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='group_extra_info']/field[@name='user_id']" position="after">
+                    <field name="panel_section_id" readonly="1" optional="hide" groups="mrp.group_mrp_user"/>
+                    <field name="wf_cut_production_id" readonly="1" optional="show" string="MO de corte" groups="mrp.group_mrp_user"/>
+                    <field name="wf_is_assembly_mo" readonly="1" optional="hide" groups="mrp.group_mrp_user"/>
+                </xpath>
+                <!-- Show cut description in the Components tab -->
+                <xpath expr="//field[@name='move_raw_ids']//field[@name='name']" position="attributes">
+                    <attribute name="column_invisible">False</attribute>
+                    <attribute name="optional">show</attribute>
+                    <attribute name="string">Descripción de corte</attribute>
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_product_product_form_wf_panel_flag" model="ir.ui.view">
+            <field name="name">product.product.form.wf.panel.flag</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/notebook/page[@name='inventory']/group" position="inside">
+                    <field name="wf_panel_manufactured_only" optional="show"/>
+                </xpath>
+                <xpath expr="//field[@name='type']" position="replace">
+                    <field name="type" readonly="False" options="{'no_create': True}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_product_product_tree_wf_panel_flag" model="ir.ui.view">
+            <field name="name">product.product.tree.wf.panel.flag</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_product_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//list/field[@name='type']" position="attributes">
+                    <attribute name="optional">show</attribute>
+                </xpath>
+                <xpath expr="//list/field[@name='default_code']" position="after">
+                    <field name="wf_panel_manufactured_only" optional="show"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

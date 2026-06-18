@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_wf_panel_workorder_tree" model="ir.ui.view">
+        <field name="name">wf.panel.workorder.tree</field>
+        <field name="model">mrp.workorder</field>
+        <field name="inherit_id" ref="mrp.mrp_production_workorder_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//list/field[@name='product_id']" position="after">
+                <field name="wf_instruction" string="Instrucciones" optional="show"/>
+                <field name="wf_planned_duration_min" string="Minutos WF" optional="hide" readonly="1"/>
+                <field name="wf_planned_cost" string="Costo WF" optional="hide" readonly="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_wf_panel_workorder_form" model="ir.ui.view">
+        <field name="name">wf.panel.workorder.form</field>
+        <field name="model">mrp.workorder</field>
+        <field name="inherit_id" ref="mrp.mrp_production_workorder_form_view_inherit"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Instrucciones WF">
+                    <group>
+                        <field name="wf_instruction" nolabel="1"/>
+                    </group>
+                    <group>
+                        <field name="wf_planned_duration_min" readonly="1"/>
+                        <field name="wf_planned_cost" readonly="1"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

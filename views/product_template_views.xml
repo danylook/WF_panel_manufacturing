@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_template_form_view_wf_stock_lengths" model="ir.ui.view">
+        <field name="name">product.template.form.inherit.wf.stock.lengths</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="WF Panel Lengths" name="wf_stock_lengths">
+                    <field name="wf_stock_length_ids">
+                        <list editable="bottom">
+                            <field name="length_in" string="Length (in)"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

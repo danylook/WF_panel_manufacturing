@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- Vista y acción para el wizard de creación de MO y BOM -->
+        <record id="view_panel_mrp_mo_creator_wizard_form" model="ir.ui.view">
+            <field name="name">panel.mrp.mo.creator.wizard.form</field>
+            <field name="model">panel.mrp.mo.creator.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Crear MO y BOM">
+                    <group>
+                        <field name="result_text" nolabel="1" readonly="1" widget="html"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record id="action_panel_mrp_mo_creator_wizard" model="ir.actions.act_window">
+            <field name="name">Crear MO y BOM</field>
+            <field name="res_model">panel.mrp.mo.creator.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_panel_mrp_mo_creator_wizard_form"/>
+            <field name="target">new</field>
+            <field name="context">{'active_id': active_id}</field>
+        </record>
+        <record id="view_panel_mrp_dictionary_wizard_form" model="ir.ui.view">
+            <field name="name">panel.mrp.dictionary.wizard.form</field>
+            <field name="model">panel.mrp.dictionary.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Diccionario de piezas">
+                    <group>
+                        <field name="dictionary_text" nolabel="1" readonly="1" widget="html"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record id="action_panel_mrp_dictionary_wizard" model="ir.actions.act_window">
+            <field name="name">Diccionario de piezas</field>
+            <field name="res_model">panel.mrp.dictionary.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="context">{'active_id': active_id}</field>
+        </record>
+    </data>
+</odoo>

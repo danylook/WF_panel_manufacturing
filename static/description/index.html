@@ -1,0 +1,44 @@
+<h2>WF Panel Manufacturing</h2>
+<p>
+    Este módulo automatiza la generación de órdenes de fabricación para paneles importados desde WoodFrame,
+    creando variantes de corte y ensamblaje, dividiendo el flujo en múltiples órdenes de trabajo e incorporando
+    instrucciones bilingües listadas directamente en cada etapa.
+</p>
+
+<img src="icon.svg" alt="WF Panel Manufacturing" style="max-width: 200px; margin: 16px 0;">
+
+<h3>Características destacadas</h3>
+<ul>
+    <li>Construcción automática de órdenes de fabricación por sección de panel, reutilizando la lista de materiales generada por el importador.</li>
+    <li>Separación del proceso de corte en <strong>Cutting – One Side</strong> y <strong>Cutting – Two Sides</strong>, con asignación inteligente de componentes según requieran un segundo corte.</li>
+    <li>Etapas de ensamblaje complementarias (<strong>Assembly – One Side</strong>/<strong>Two Sides</strong>) para garantizar que cada pieza continúa su flujo correcto.</li>
+    <li>Instrucciones de trabajo y mensajes de depuración en español o inglés de acuerdo al idioma del usuario.</li>
+    <li>Estimación del tiempo y costo planificado por corte tomando el costo horario del centro de trabajo.</li>
+</ul>
+
+<h3>Novedades recientes</h3>
+<ul>
+    <!-- Removed reference to WF Panel Cutting settings -->
+    <li>Al crear las órdenes de trabajo, el módulo calcula minutos planificados y costo estimado almacenándolo en los nuevos campos <code>wf_planned_duration_min</code> y <code>wf_planned_cost</code>.</li>
+    <li>Asignación de movimientos de ensamblaje dividida entre una o dos caras, con fallback automático cuando no aplica separación.</li>
+    <li>Sincronización de instrucciones personalizadas en cada workorder y publicación como notas en la orden de fabricación.</li>
+</ul>
+
+<h3>Configuración inicial</h3>
+<ol>
+    <li>Defina los centros de trabajo <strong>Cut Center</strong> y <strong>Assembly Center</strong>, incluyendo el costo por hora (campo <em>Cost per hour</em>).</li>
+    <!-- Removed reference to WF Panel Cutting settings -->
+    <li>En WoodFrame Importer, genere el perfil de manufactura de un panel y ejecute el asistente “Planificar fabricación”.</li>
+    <li>Revise las órdenes de trabajo; cada etapa mostrará instrucciones, duración planificada y costo estimado.</li>
+</ol>
+
+<h3>Consejos de uso</h3>
+<ul>
+    <li>Ejecución de <code>scripts/debug_panel.py</code> para validar flujos después de actualizar la lógica.</li>
+    <li>Las notas de corte acumuladas se adjuntan a las órdenes de trabajo que correspondan, facilitando el seguimiento de instrucciones puntuales.</li>
+    <li>Los componentes sobrantes generan movimientos de subproducto listos para reutilizar en futuros trabajos.</li>
+</ul>
+
+<p style="margin-top: 24px;">
+    <!-- Removed reference to WF Panel Cutting timing/cost -->
+</p>
