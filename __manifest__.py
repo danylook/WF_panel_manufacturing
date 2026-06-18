@@ -1,7 +1,7 @@
 # pylint: disable=pointless-statement
 {
     "name": "WF Panel Manufacturing",
-    "version": "18.0.4.0.1",
+    "version": "18.0.5.0.0",
     "license": "AGPL-3",
     "summary": "Generar ordenes de fabricacion para paneles importados",
     "category": "Manufacturing",
